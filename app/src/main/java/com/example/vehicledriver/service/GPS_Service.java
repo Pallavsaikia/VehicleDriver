@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -50,7 +51,7 @@ public class GPS_Service extends Service implements LocationListener {
     Location location;//Location
     double latitude;//Latitude
     double longitude;//Longitude
-
+    private PowerManager.WakeLock wl;
     // The minimum time between updates in milliseconds
     static int time;
     private static final long MIN_TIME_BW_UPDATES = 1000 * time;
@@ -70,6 +71,9 @@ public class GPS_Service extends Service implements LocationListener {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "myapp:myWakeLock");
 
         globalPref=new GlobalPref(getApplicationContext());
         apiClients = new ApiClient();
@@ -110,10 +114,21 @@ public class GPS_Service extends Service implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         getLocation();
-        return super.onStartCommand(intent, flags, startId);
+        if(wl!=null) {
+            wl.acquire(4*60*60*1000L /*10 minutes*/);
+        }
+        return START_STICKY;
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(wl!=null) {
+            wl.release();
+        }
+        mlocationManager.removeUpdates(this);
+    }
 
     public Location getLocation() {
 
