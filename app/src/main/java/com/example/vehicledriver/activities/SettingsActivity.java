@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.vehicledriver.R;
 import com.example.vehicledriver.fragment.ServerTokenBottomSheetFragment;
 import com.example.vehicledriver.fragment.TokenBottomSheetFragment;
+import com.example.vehicledriver.utils.GlobalPref;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -60,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             if(result.getContents() == null) {
             } else {
                 Log.d("Asd", result.getContents());
+                new GlobalPref(getApplicationContext()).setToken(result.getContents());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
