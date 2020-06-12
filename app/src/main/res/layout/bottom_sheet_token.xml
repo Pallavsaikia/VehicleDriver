@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:padding="@dimen/screenMarginDefault">
+    <EditText
+
+        android:id="@+id/serverKeyEditTxt"
+        android:layout_marginTop="@dimen/paddingExtraLarge"
+        android:layout_width="match_parent"
+        android:padding="@dimen/paddingSmall"
+        android:hint="@string/token"
+        android:gravity="top"
+        android:background="@color/colorBackgroundGray"
+        android:layout_height="@dimen/paddingUltraLarge">
+    </EditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/serverTokenUpdateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/paddingSuperLarge"
+        android:layout_marginStart="@dimen/paddingExtraLarge"
+        android:layout_marginEnd="@dimen/paddingExtraLarge"
+        android:layout_marginTop="@dimen/paddingExtraLarge"
+        android:background="@drawable/border_all_side_green"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:layout_marginBottom="@dimen/paddingExtraLarge"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Update Token"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+</LinearLayout>

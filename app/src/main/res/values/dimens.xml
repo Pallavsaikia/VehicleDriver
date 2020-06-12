@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="paddingSmall">8dp</dimen>
+    <dimen name="paddingSmaller">4dp</dimen>
+    <dimen name="paddingMedium">16dp</dimen>
+    <dimen name="paddingLarge">24dp</dimen>
+    <dimen name="paddingExtraLarge">32dp</dimen>
+    <dimen name="paddingSuperLarge">64dp</dimen>
+    <dimen name="paddingUltraLarge">128dp</dimen>
+    <dimen name="screenMarginDefault">@dimen/paddingMedium</dimen>
+
+    <dimen name="lighterFont">10sp</dimen>
+    <dimen name="lightFont">11sp</dimen>
+    <dimen name="normalFont">15sp</dimen>
+    <dimen name="regularFont">20sp</dimen>
+</resources>

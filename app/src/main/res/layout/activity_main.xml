@@ -1,61 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.vehicledriver.activities.MainActivity">
 
-    tools:context="com.example.vehicledriver.MainActivity">
-
-    <Button
-        android:id="@+id/location_btn"
-
-        android:layout_width="270dp"
-
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="155dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="Show Location"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        tools:text="Show Location" />
-
-    <TextView
-        android:id="@+id/welcome_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:text="Realtime Truck Tracking"
-        android:textColor="#000"
-        android:textSize="17sp" />
-
-
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welcome_tv"
-        android:id="@+id/spinner_time"
-        android:layout_margin="10dp"
-        ></Spinner>
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/screenMarginDefault"
+        android:paddingTop="@dimen/paddingSmall"
+        android:paddingEnd="0dp"
+        android:paddingBottom="@dimen/paddingSmall">
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Location"
-        android:padding="10dp"
-        android:textSize="19sp"
-        android:id="@+id/location_tv"
-        android:textColor="#000"
-        android:layout_centerInParent="true"
-        />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/vehicle_driver"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/regularFont" />
+
+        <ImageView
+            android:id="@+id/settingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/paddingSmall"
+            android:src="@drawable/settings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/screenMarginDefault">
+
+        <Spinner
+            android:id="@+id/spinner_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/paddingMedium"
+            android:background="@drawable/border_all_side"
+            android:padding="2dp" />
 
 
-</RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/location_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/paddingSuperLarge"
+            android:layout_marginStart="@dimen/paddingExtraLarge"
+            android:layout_marginEnd="@dimen/paddingExtraLarge"
+            android:layout_marginTop="@dimen/paddingExtraLarge"
+            android:background="@drawable/start_btn"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/start"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stopBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/paddingSuperLarge"
+            android:layout_marginStart="@dimen/paddingExtraLarge"
+            android:layout_marginEnd="@dimen/paddingExtraLarge"
+            android:layout_marginTop="@dimen/paddingExtraLarge"
+            android:background="@drawable/stop_btn"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/stop"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/latLngLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingSuperLarge"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/latitude"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normalFont" />
+
+                <TextView
+                    android:id="@+id/latitudeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normalFont" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingSmall"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/longitude"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normalFont" />
+
+                <TextView
+                    android:id="@+id/longitudeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="@dimen/normalFont" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

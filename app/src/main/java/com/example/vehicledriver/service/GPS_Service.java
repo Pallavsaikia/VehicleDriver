@@ -1,4 +1,4 @@
-package com.example.vehicledriver;
+package com.example.vehicledriver.service;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -25,10 +25,12 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.vehicledriver.R;
 import com.example.vehicledriver.api.ApiClient;
 import com.example.vehicledriver.api.ApiInterface;
 import com.example.vehicledriver.pojo.Data;
 import com.example.vehicledriver.pojo.SendDta;
+import com.example.vehicledriver.utils.GlobalPref;
 
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -39,7 +41,7 @@ public class GPS_Service extends Service implements LocationListener {
     private Context mContext;
     // flag for GPS status
     boolean isGPSEnabled = false;
-
+    GlobalPref globalPref;
     // flag for network status
     boolean isNetworkEnabled = false;
     boolean canGetLocation = false;
@@ -69,6 +71,7 @@ public class GPS_Service extends Service implements LocationListener {
     public void onCreate() {
         super.onCreate();
 
+        globalPref=new GlobalPref(getApplicationContext());
         apiClients = new ApiClient();
 
         apiService = apiClients.getApi(getApplicationContext()).create(ApiInterface.class);
@@ -224,12 +227,27 @@ public class GPS_Service extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Intent intent = new Intent("location.intent.vehicle");
-        intent.putExtra("coordinates", location.getLatitude() + location.getLatitude());
+        intent.putExtra("latitude", location.getLatitude());
+        intent.putExtra("longitude", location.getLongitude());
         getApplicationContext().sendBroadcast(intent);
-        SendDta sendDta = new SendDta("fH9x6fBKTdO34EJXLofDNI:APA91bHNWHC2kaEMHrWMqyMBYGRmqYrx8vRi7XNzfDySj1PxNO2fg8zegGSQklQjqplYznqegtQ8FqUhnUNq6vHld-muFEE7ks_1Tv4ulEgoWGIrbVzpcGIzxkt8KoGQHaPwbssnb6S6",
+        String token;
+        String serverKey;
+        if(globalPref.getToken()==null){
+            token=GlobalPref.TOKEN_VAL;
+        }else {
+            token=globalPref.getToken();
+        }
+
+        if(globalPref.getServerKey()==null){
+            serverKey="key="+GlobalPref.SERVER_KEY_VAL;
+        }else {
+            serverKey="key="+globalPref.getServerKey();
+        }
+        Log.d("key",serverKey);
+        Log.d("key",token);
+        SendDta sendDta = new SendDta(token,
                 new Data(location.getLatitude(), location.getLongitude()));
-        apiService.sendMessage("key=AAAAHa48jJk:APA91bHD4qvEh8xe0hPT9-x1avqoQUFauVR1ljMZHxeeoXPf4Fmcqa2Wnsykb8JqxRdvJfPpBNBhZddWiG6hwnbBRtDEq1ZsYHDVC7izDW2tzJi_ksBQ5RSdBmYVmaucX7A22Y4ivzCe",
-                "application/json", sendDta)
+        apiService.sendMessage(serverKey,"application/json", sendDta)
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(new DisposableSingleObserver<Object>() {
                     @Override
