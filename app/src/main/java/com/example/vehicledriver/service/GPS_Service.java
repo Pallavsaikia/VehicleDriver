@@ -243,8 +243,7 @@ public class GPS_Service extends Service implements LocationListener {
         }else {
             serverKey="key="+globalPref.getServerKey();
         }
-        Log.d("key",serverKey);
-        Log.d("key",token);
+
         SendDta sendDta = new SendDta(token,
                 new Data(location.getLatitude(), location.getLongitude()));
         apiService.sendMessage(serverKey,"application/json", sendDta)
