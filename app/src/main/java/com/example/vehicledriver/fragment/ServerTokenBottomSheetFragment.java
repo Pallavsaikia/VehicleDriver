@@ -34,7 +34,11 @@ public class ServerTokenBottomSheetFragment extends BottomSheetDialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         GlobalPref gp=new GlobalPref(getContext());
-        serverKeyEditTxt.setText(gp.getServerKey());
+        if(gp.getServerKey()!=null) {
+            serverKeyEditTxt.setText(gp.getServerKey());
+        }else{
+            serverKeyEditTxt.setText(GlobalPref.SERVER_KEY_VAL);
+        }
         serverTokenUpdateBtn.setOnClickListener(v->{
             gp.setServerKey(serverKeyEditTxt.getText().toString());
             dismiss();
